@@ -1,10 +1,13 @@
-import { Button } from '@/components/ui/button'
 import React from 'react'
+import Header from './components/Header'
 
 const page = () => {
   return (
     <div>
-      page
+      <div>
+        <Header />
+        
+      </div>
     </div>
   )
 }
