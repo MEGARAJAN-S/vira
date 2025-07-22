@@ -5,7 +5,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className='fixed z-50 w-full bg-background/40 backdrop-blur-full border-b'>
+    <div className='fixed z-50 w-full bg-muted backdrop-blur-full border-b'>
       <div className='max-w-7xl mx-auto px-6 flex h-16 items-center justify-between'>
         <Link href="/" className="flex items-center gap-2">
           <House className="w-5 h-5" />
