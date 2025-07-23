@@ -141,13 +141,23 @@
 }
 
 .responsive-text{
+<<<<<<< Updated upstream
   font-size: 1.5rem;
   line-height: 1;
+=======
+  font-size: 1.875rem;
+  line-height: 1;
+  text-align: center;
+>>>>>>> Stashed changes
 }
 
 @media (width > 48rem){
   .responsive-text{
+<<<<<<< Updated upstream
     font-size: 1.875rem;
+=======
+    font-size: 2.25rem;
+>>>>>>> Stashed changes
   }
 }
 
