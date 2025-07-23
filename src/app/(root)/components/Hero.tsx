@@ -12,10 +12,8 @@ const Hero = () => {
             </div>
 
             <div className='pt-16'>
-<<<<<<< Updated upstream
-                <div className='flex items-center justify-center pt-20 text-7xl'>
+                <div className='flex items-center justify-center pt-20 responsive-heading'>
                     <span>VIRA</span>
-=======
                 <div className='flex flex-col items-center justify-center pt-20'>
                     <span>
                         <SparklesText className='responsive-heading'>VIRA</SparklesText>
@@ -45,7 +43,6 @@ const Hero = () => {
                             </Button>
                         </Link>
                     </div>
->>>>>>> Stashed changes
                 </div>
             </div>
         </div>
