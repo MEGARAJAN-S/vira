@@ -115,3 +115,44 @@
     @apply bg-background text-foreground;
   }
 }
+
+.responsive-heading{
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+@media (width > 40rem) { 
+  .responsive-heading{
+    font-size: 3rem;
+  }
+}
+
+@media (width > 48rem){
+  .responsive-heading{
+    font-size: 3.75rem;
+  }
+}
+
+@media (width > 64rem){
+  .responsive-heading{
+    font-size: 4.5rem;
+  }
+}
+
+.responsive-text{
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+@media (width > 48rem){
+  .responsive-text{
+    font-size: 1.875rem;
+  }
+}
+
+@media (width > 64rem){
+  .responsive-text{
+    font-size: 2.24rem;
+  }
+}
