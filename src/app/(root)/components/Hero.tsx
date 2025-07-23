@@ -10,10 +10,8 @@ const Hero = () => {
             <div className="absolute overflow-hidden w-full z-[-1]">
                 <Particles />
             </div>
-
             <div className='pt-16'>
                 <div className='flex items-center justify-center pt-20 responsive-heading'>
-                    <span>VIRA</span>
                 <div className='flex flex-col items-center justify-center pt-20'>
                     <span>
                         <SparklesText className='responsive-heading'>VIRA</SparklesText>
