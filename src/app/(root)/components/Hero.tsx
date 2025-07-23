@@ -8,7 +8,7 @@ const Hero = () => {
                 <Particles />
             </div>
             <div className='pt-16'>
-                <div className='flex items-center justify-center pt-20 text-7xl'>
+                <div className='flex items-center justify-center pt-20 responsive-heading'>
                     <span>VIRA</span>
                 </div>
             </div>
