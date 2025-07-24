@@ -1,51 +1,49 @@
-import { Particles } from '@/components/modules/Particles'
-import { SparklesText } from '@/components/modules/Sparkle'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import React from 'react'
+// components/HeroSection.tsx
+"use client";
+
+import { BorderBeam } from "@/components/modules/BorderBeam";
+import { Particles } from "@/components/modules/Particles";
+import { SparklesText } from "@/components/modules/Sparkle";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const Hero = () => {
     return (
-        <div className='h-svh relative z-10'>
-            <div className="absolute overflow-hidden w-full z-[-1]">
+        <section className="h-svh z-10 bg-background text-foreground pt-10 px-6 text-center relative overflow-hidden">
+            <div className="absolute inset-0 w-full z-[-1] overflow-hidden">
                 <Particles />
             </div>
-            <div className='pt-16'>
-                <div className='flex items-center justify-center pt-20 responsive-heading'>
-                <div className='flex flex-col items-center justify-center pt-20'>
-                    <span>
-                        <SparklesText className='responsive-heading'>VIRA</SparklesText>
-                    </span>
+            <span><SparklesText className="responsive-heading">VIRA</SparklesText></span>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+                Your thoughts deserve to be heard — <span className="text-secondary">let VIRA listen</span>
+            </h1>
 
-                    <span className='responsive-text mt-4 text-secondary'>
-                        Your thoughts deserve to be heard — let VIRA listen
-                    </span>
+            <p className="mt-4 text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
+                Speak or type your thoughts. VIRA listens, understands, and supports your emotional journey.<br />
+                Whether you're journaling, venting, or reflecting — VIRA is here to help you feel better.
+            </p>
 
-                    <span className='responsive-para mt-6 text-primary'>
-                        Speak or type your thoughts. VIRA listens, understands, and supports your emotional journey.
-                    </span>
-
-                    <span className='responsive-para text-primary'>
-                        Whether you're journaling, venting, or reflecting — VIRA is here to help you feel better.
-                    </span>
-
-                    <div className="mt-20 flex gap-5">
-                        <Link href="/signup">
-                            <Button variant="default" asChild>
-                                <span>Start Talking</span>
-                            </Button>
-                        </Link>
-                        <Link href="/dashboard">
-                            <Button variant="outline" asChild>
-                                <span>View Features</span>
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                <Button className="bg-primary text-primary-foreground px-6 py-3 text-base hover:bg-primary/90">
+                    Start Talking
+                </Button>
+                <Button variant="outline" className="px-6 py-3 text-base">
+                    View Features
+                </Button>
             </div>
-        </div>
-    </div>
-    )
+            <div className="relative w-fit mx-auto mt-10">
+                <Image
+                    src="/calm-ai.png"
+                    alt="VIRA AI mental wellness visual"
+                    width={1100}
+                    height={1000}
+                    className="border-2 border-border shadow-2xl"
+                />
+                <BorderBeam
+                    className="border-2 from-transparent via-[#A5B4FC] to-transparent" />
+            </div>
+        </section>
+    );
 }
 
 export default Hero

@@ -45,15 +45,15 @@
 
 :root {
   --radius: 0.65rem;
-  --background: oklch(0.985 0.01 120);
-  --foreground: oklch(0.2 0.01 265);
+  --background: oklch(0.985 0.01 120);         /* Soft mint */
+  --foreground: oklch(0.2 0.01 265);          /* Deep gray */
   --card: oklch(1 0 0);
   --card-foreground: var(--foreground);
   --popover: oklch(1 0 0);
   --popover-foreground: var(--foreground);
   --primary: oklch(0.72 0.19 250);
   --primary-foreground: oklch(0.99 0.01 250);
-  --secondary: oklch(0.9 0.1 20);                    
+  --secondary: oklch(0.82 0.12 20);                    
   --secondary-foreground: var(--foreground);
   --accent: oklch(0.82 0.12 140);                    
   --accent-foreground: var(--foreground);
