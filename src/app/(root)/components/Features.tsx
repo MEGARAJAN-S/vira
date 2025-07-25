@@ -2,7 +2,7 @@ import React from 'react'
 
 const Features = () => {
     return (
-        <section id="features" className="py-16 px-6 bg-card text-card-foreground text-center">
+        <section id="features" className="h-svh w-full bg-card text-card-foreground text-center">
             <h2 className="text-3xl font-bold mb-8">Why VIRA?</h2>
             <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 max-w-6xl mx-auto">
                 <div>
