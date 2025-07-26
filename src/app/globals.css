@@ -175,3 +175,13 @@
     font-size: 1.25rem;
   }
 }
+
+/* Optional subtle pulse animation on icons */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.icon-animated {
+  animation: pulse 3s infinite ease-in-out;
+}
