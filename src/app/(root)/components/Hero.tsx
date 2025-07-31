@@ -31,13 +31,13 @@ const Hero = () => {
                     View Features
                 </Button>
             </div>
-            <div className="relative w-fit mx-auto mt-10">
+            <div className="relative w-full max-w-[1100px] mx-auto mt-10">
                 <Image
                     src="/calm-ai.png"
                     alt="VIRA AI mental wellness visual"
                     width={1100}
                     height={1000}
-                    className="border-2 border-border shadow-2xl"
+                    className="responsive-image border-2 border-border shadow-2xl"
                 />
                 <BorderBeam
                     className="border-2 from-transparent via-[#A5B4FC] to-transparent" />
