@@ -28,7 +28,7 @@ const Hero = () => {
                     Start Talking
                 </Button>
                 <Button variant="outline" className="px-6 py-3 text-base">
-                    View Features
+                    <a href="#features">View Features</a>
                 </Button>
             </div>
             <div className="relative w-full max-w-[1100px] mx-auto mt-10">
