@@ -6,7 +6,7 @@ const Features = () => {
   return (
     <section
       id="features"
-      className="relative h-svh w-full bg-card text-card-foreground px-4 py-20"
+      className="relative min-h-screen w-full bg-card text-card-foreground px-4 py-20"
     >
       <div className="max-w-6xl mx-auto text-center relative z-10">
         <h2 className="text-4xl font-bold mb-6 text-primary">Why VIRA?</h2>

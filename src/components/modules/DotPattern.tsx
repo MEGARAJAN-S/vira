@@ -1,304 +1,158 @@
-'use client';
-import React, { useRef, useEffect, useCallback, useMemo } from "react";
-import { gsap } from "gsap";
-import { InertiaPlugin } from "gsap/InertiaPlugin";
+"use client";
 
-gsap.registerPlugin(InertiaPlugin);
+import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
+import React, { useEffect, useId, useRef, useState } from "react";
 
-const throttle = (func: (...args: any[]) => void, limit: number) => {
-  let lastCall = 0;
-  return function (this: any, ...args: any[]) {
-    const now = performance.now();
-    if (now - lastCall >= limit) {
-      lastCall = now;
-      func.apply(this, args);
-    }
-  };
-};
-
-interface Dot {
-  cx: number;
-  cy: number;
-  xOffset: number;
-  yOffset: number;
-  _inertiaApplied: boolean;
-}
-
-export interface DotGridProps {
-  dotSize?: number;
-  gap?: number;
-  baseColor?: string;
-  activeColor?: string;
-  proximity?: number;
-  speedTrigger?: number;
-  shockRadius?: number;
-  shockStrength?: number;
-  maxSpeed?: number;
-  resistance?: number;
-  returnDuration?: number;
+/**
+ *  DotPattern Component Props
+ *
+ * @param {number} [width=16] - The horizontal spacing between dots
+ * @param {number} [height=16] - The vertical spacing between dots
+ * @param {number} [x=0] - The x-offset of the entire pattern
+ * @param {number} [y=0] - The y-offset of the entire pattern
+ * @param {number} [cx=1] - The x-offset of individual dots
+ * @param {number} [cy=1] - The y-offset of individual dots
+ * @param {number} [cr=1] - The radius of each dot
+ * @param {string} [className] - Additional CSS classes to apply to the SVG container
+ * @param {boolean} [glow=false] - Whether dots should have a glowing animation effect
+ */
+interface DotPatternProps extends React.SVGProps<SVGSVGElement> {
+  width?: number;
+  height?: number;
+  x?: number;
+  y?: number;
+  cx?: number;
+  cy?: number;
+  cr?: number;
   className?: string;
-  style?: React.CSSProperties;
+  glow?: boolean;
+  [key: string]: unknown;
 }
 
-function hexToRgb(hex: string) {
-  const m = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
-  if (!m) return { r: 0, g: 0, b: 0 };
-  return {
-    r: parseInt(m[1], 16),
-    g: parseInt(m[2], 16),
-    b: parseInt(m[3], 16),
-  };
-}
+/**
+ * DotPattern Component
+ *
+ * A React component that creates an animated or static dot pattern background using SVG.
+ * The pattern automatically adjusts to fill its container and can optionally display glowing dots.
+ *
+ * @component
+ *
+ * @see DotPatternProps for the props interface.
+ *
+ * @example
+ * // Basic usage
+ * <DotPattern />
+ *
+ * // With glowing effect and custom spacing
+ * <DotPattern
+ *   width={20}
+ *   height={20}
+ *   glow={true}
+ *   className="opacity-50"
+ * />
+ *
+ * @notes
+ * - The component is client-side only ("use client")
+ * - Automatically responds to container size changes
+ * - When glow is enabled, dots will animate with random delays and durations
+ * - Uses Motion for animations
+ * - Dots color can be controlled via the text color utility classes
+ */
 
-const DotGrid: React.FC<DotGridProps> = ({
-  dotSize = 16,
-  gap = 32,
-  baseColor = "#5227FF",
-  activeColor = "#5227FF",
-  proximity = 150,
-  speedTrigger = 100,
-  shockRadius = 250,
-  shockStrength = 5,
-  maxSpeed = 5000,
-  resistance = 750,
-  returnDuration = 1.5,
-  className = "",
-  style,
-}) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const dotsRef = useRef<Dot[]>([]);
-  const pointerRef = useRef({
-    x: 0,
-    y: 0,
-    vx: 0,
-    vy: 0,
-    speed: 0,
-    lastTime: 0,
-    lastX: 0,
-    lastY: 0,
-  });
-
-  const baseRgb = useMemo(() => hexToRgb(baseColor), [baseColor]);
-  const activeRgb = useMemo(() => hexToRgb(activeColor), [activeColor]);
-
-  const circlePath = useMemo(() => {
-    if (typeof window === "undefined" || !window.Path2D) return null;
-
-    const p = new Path2D();
-    p.arc(0, 0, dotSize / 2, 0, Math.PI * 2);
-    return p;
-  }, [dotSize]);
-
-  const buildGrid = useCallback(() => {
-    const wrap = wrapperRef.current;
-    const canvas = canvasRef.current;
-    if (!wrap || !canvas) return;
-
-    const { width, height } = wrap.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    const ctx = canvas.getContext("2d");
-    if (ctx) ctx.scale(dpr, dpr);
-
-    const cols = Math.floor((width + gap) / (dotSize + gap));
-    const rows = Math.floor((height + gap) / (dotSize + gap));
-    const cell = dotSize + gap;
-
-    const gridW = cell * cols - gap;
-    const gridH = cell * rows - gap;
-
-    const extraX = width - gridW;
-    const extraY = height - gridH;
-
-    const startX = extraX / 2 + dotSize / 2;
-    const startY = extraY / 2 + dotSize / 2;
-
-    const dots: Dot[] = [];
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        const cx = startX + x * cell;
-        const cy = startY + y * cell;
-        dots.push({ cx, cy, xOffset: 0, yOffset: 0, _inertiaApplied: false });
-      }
-    }
-    dotsRef.current = dots;
-  }, [dotSize, gap]);
+export function DotPattern({
+  width = 16,
+  height = 16,
+  x = 0,
+  y = 0,
+  cx = 1,
+  cy = 1,
+  cr = 1,
+  className,
+  glow = false,
+  ...props
+}: DotPatternProps) {
+  const id = useId();
+  const containerRef = useRef<SVGSVGElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    if (!circlePath) return;
-
-    let rafId: number;
-    const proxSq = proximity * proximity;
-
-    const draw = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const { x: px, y: py } = pointerRef.current;
-
-      for (const dot of dotsRef.current) {
-        const ox = dot.cx + dot.xOffset;
-        const oy = dot.cy + dot.yOffset;
-        const dx = dot.cx - px;
-        const dy = dot.cy - py;
-        const dsq = dx * dx + dy * dy;
-
-        let style = baseColor;
-        if (dsq <= proxSq) {
-          const dist = Math.sqrt(dsq);
-          const t = 1 - dist / proximity;
-          const r = Math.round(baseRgb.r + (activeRgb.r - baseRgb.r) * t);
-          const g = Math.round(baseRgb.g + (activeRgb.g - baseRgb.g) * t);
-          const b = Math.round(baseRgb.b + (activeRgb.b - baseRgb.b) * t);
-          style = `rgb(${r},${g},${b})`;
-        }
-
-        ctx.save();
-        ctx.translate(ox, oy);
-        ctx.fillStyle = style;
-        ctx.fill(circlePath);
-        ctx.restore();
-      }
-
-      rafId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => cancelAnimationFrame(rafId);
-  }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
-
-  useEffect(() => {
-    buildGrid();
-    let ro: ResizeObserver | null = null;
-    if ("ResizeObserver" in window) {
-      ro = new ResizeObserver(buildGrid);
-      wrapperRef.current && ro.observe(wrapperRef.current);
-    } else {
-      (window as Window).addEventListener("resize", buildGrid);
-    }
-    return () => {
-      if (ro) ro.disconnect();
-      else window.removeEventListener("resize", buildGrid);
-    };
-  }, [buildGrid]);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const now = performance.now();
-      const pr = pointerRef.current;
-      const dt = pr.lastTime ? now - pr.lastTime : 16;
-      const dx = e.clientX - pr.lastX;
-      const dy = e.clientY - pr.lastY;
-      let vx = (dx / dt) * 1000;
-      let vy = (dy / dt) * 1000;
-      let speed = Math.hypot(vx, vy);
-      if (speed > maxSpeed) {
-        const scale = maxSpeed / speed;
-        vx *= scale;
-        vy *= scale;
-        speed = maxSpeed;
-      }
-      pr.lastTime = now;
-      pr.lastX = e.clientX;
-      pr.lastY = e.clientY;
-      pr.vx = vx;
-      pr.vy = vy;
-      pr.speed = speed;
-
-      const rect = canvasRef.current!.getBoundingClientRect();
-      pr.x = e.clientX - rect.left;
-      pr.y = e.clientY - rect.top;
-
-      for (const dot of dotsRef.current) {
-        const dist = Math.hypot(dot.cx - pr.x, dot.cy - pr.y);
-        if (speed > speedTrigger && dist < proximity && !dot._inertiaApplied) {
-          dot._inertiaApplied = true;
-          gsap.killTweensOf(dot);
-          const pushX = dot.cx - pr.x + vx * 0.005;
-          const pushY = dot.cy - pr.y + vy * 0.005;
-          gsap.to(dot, {
-            inertia: { xOffset: pushX, yOffset: pushY, resistance },
-            onComplete: () => {
-              gsap.to(dot, {
-                xOffset: 0,
-                yOffset: 0,
-                duration: returnDuration,
-                ease: "elastic.out(1,0.75)",
-              });
-              dot._inertiaApplied = false;
-            },
-          });
-        }
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const { width, height } = containerRef.current.getBoundingClientRect();
+        setDimensions({ width, height });
       }
     };
 
-    const onClick = (e: MouseEvent) => {
-      const rect = canvasRef.current!.getBoundingClientRect();
-      const cx = e.clientX - rect.left;
-      const cy = e.clientY - rect.top;
-      for (const dot of dotsRef.current) {
-        const dist = Math.hypot(dot.cx - cx, dot.cy - cy);
-        if (dist < shockRadius && !dot._inertiaApplied) {
-          dot._inertiaApplied = true;
-          gsap.killTweensOf(dot);
-          const falloff = Math.max(0, 1 - dist / shockRadius);
-          const pushX = (dot.cx - cx) * shockStrength * falloff;
-          const pushY = (dot.cy - cy) * shockStrength * falloff;
-          gsap.to(dot, {
-            inertia: { xOffset: pushX, yOffset: pushY, resistance },
-            onComplete: () => {
-              gsap.to(dot, {
-                xOffset: 0,
-                yOffset: 0,
-                duration: returnDuration,
-                ease: "elastic.out(1,0.75)",
-              });
-              dot._inertiaApplied = false;
-            },
-          });
-        }
-      }
-    };
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
 
-    const throttledMove = throttle(onMove, 50);
-    window.addEventListener("mousemove", throttledMove, { passive: true });
-    window.addEventListener("click", onClick);
-
-    return () => {
-      window.removeEventListener("mousemove", throttledMove);
-      window.removeEventListener("click", onClick);
-    };
-  }, [
-    maxSpeed,
-    speedTrigger,
-    proximity,
-    resistance,
-    returnDuration,
-    shockRadius,
-    shockStrength,
-  ]);
+  const dots = Array.from(
+    {
+      length:
+        Math.ceil(dimensions.width / width) *
+        Math.ceil(dimensions.height / height),
+    },
+    (_, i) => {
+      const col = i % Math.ceil(dimensions.width / width);
+      const row = Math.floor(i / Math.ceil(dimensions.width / width));
+      return {
+        x: col * width + cx,
+        y: row * height + cy,
+        delay: Math.random() * 5,
+        duration: Math.random() * 3 + 2,
+      };
+    },
+  );
 
   return (
-    <section
-      className={`p-4 flex items-center justify-center h-full w-full relative ${className}`}
-      style={style}
+    <svg
+      ref={containerRef}
+      aria-hidden="true"
+      className={cn(
+        "pointer-events-none absolute inset-0 h-full w-full",
+        className,
+      )}
+      {...props}
     >
-      <div ref={wrapperRef} className="w-full h-full relative">
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full pointer-events-none"
+      <defs>
+        <radialGradient id={`${id}-gradient`}>
+          <stop offset="0%" stopColor="currentColor" stopOpacity="1" />
+          <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      {dots.map((dot, index) => (
+        <motion.circle
+          key={`${dot.x}-${dot.y}`}
+          cx={dot.x}
+          cy={dot.y}
+          r={cr}
+          fill={glow ? `url(#${id}-gradient)` : "currentColor"}
+          className="text-neutral-400/80"
+          initial={glow ? { opacity: 0.4, scale: 1 } : {}}
+          animate={
+            glow
+              ? {
+                  opacity: [0.4, 1, 0.4],
+                  scale: [1, 1.5, 1],
+                }
+              : {}
+          }
+          transition={
+            glow
+              ? {
+                  duration: dot.duration,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: dot.delay,
+                  ease: "easeInOut",
+                }
+              : {}
+          }
         />
-      </div>
-    </section>
+      ))}
+    </svg>
   );
-};
-
-export default DotGrid;
+}
