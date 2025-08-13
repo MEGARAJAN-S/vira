@@ -1,12 +1,7 @@
 import { DotPattern } from "@/components/modules/DotPattern";
 import useData from "../constants/use";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 
 const Use = () => {
   return (
@@ -20,7 +15,6 @@ const Use = () => {
           cr={2.5}
         />
       </div>
-
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-primary mb-4">
