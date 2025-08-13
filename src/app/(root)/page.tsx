@@ -5,6 +5,7 @@ import Hero from './components/Hero'
 import Features from './components/Features'
 import Use from './components/Use'
 import Testimonials from './components/Testimonial'
+import CallToAction from './components/CallToAction'
 
 const page = () => {
   return (
@@ -16,6 +17,7 @@ const page = () => {
         <Features />
         <Use />
         <Testimonials />
+        <CallToAction />
       </div>
     </div>
   )
