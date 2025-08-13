@@ -12,7 +12,7 @@ const Use = () => {
   return (
     <section
       id="how-it-works"
-      className="relative min-h-screen w-full overflow-hidden bg-background px-4 py-20"
+      className="relative w-full overflow-hidden bg-background px-4 py-20"
     >
       <div className="absolute inset-0">
         <DotPattern
