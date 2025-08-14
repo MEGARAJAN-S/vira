@@ -3,6 +3,7 @@ import useData from "../constants/use";
 import React from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import ShinyText from "@/components/modules/ShinyText";
+import { Ripple } from "@/components/modules/Ripple";
 
 const Use = () => {
   return (
@@ -10,11 +11,8 @@ const Use = () => {
       id="how-it-works"
       className="relative w-full overflow-hidden bg-background px-4 py-20"
     >
-      <div className="absolute inset-0">
-        <DotPattern
-          className="[mask-image:radial-gradient(800px_circle_at_center,white,transparent)] text-primary/40"
-          cr={2.5}
-        />
+      <div className="absolute inset-0 overflow-hidden">
+        <Ripple></Ripple>
       </div>
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">

@@ -53,7 +53,7 @@
   --popover-foreground: var(--foreground);
   --primary: oklch(0.72 0.19 250);        /*#3ba9ff*/
   --primary-foreground: oklch(0.99 0.01 250);
-  --secondary: oklch(0.82 0.12 20);                    
+  --secondary: oklch(0.82 0.12 20);       /*#ffa4a4*/           
   --secondary-foreground: var(--foreground);
   --accent: oklch(0.82 0.12 140);                    
   --accent-foreground: var(--foreground);
@@ -211,6 +211,29 @@
     }
     to {
       transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+  --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s)
+    infinite;
+ 
+  @keyframes ripple {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+  }
+  --animate-pulse: pulse var(--duration) ease-out infinite;
+ 
+  @keyframes pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 var(--pulse-color);
+    }
+    50% {
+      box-shadow: 0 0 0 8px var(--pulse-color);
     }
   }
 }
