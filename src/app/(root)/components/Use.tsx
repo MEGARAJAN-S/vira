@@ -2,6 +2,7 @@ import { DotPattern } from "@/components/modules/DotPattern";
 import useData from "../constants/use";
 import React from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import ShinyText from "@/components/modules/ShinyText";
 
 const Use = () => {
   return (
@@ -17,9 +18,12 @@ const Use = () => {
       </div>
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-primary mb-4">
+          <ShinyText baseColor="rgb(59, 169, 255)"
+            shineColor="rgb(255, 164, 164)"
+            direction="left-to-right"
+            speed={8} size="4xl" weight="bold">
             How It Works
-          </h2>
+          </ShinyText>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             A simple, clear process to help you get started quickly.
           </p>
