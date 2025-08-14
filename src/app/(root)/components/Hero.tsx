@@ -3,6 +3,7 @@
 
 import { BorderBeam } from "@/components/modules/BorderBeam";
 import { Particles } from "@/components/modules/Particles";
+import ShinyText from "@/components/modules/ShinyText";
 import { SparklesText } from "@/components/modules/Sparkle";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -13,9 +14,15 @@ const Hero = () => {
             <div className="absolute inset-0 w-full z-[-1] overflow-hidden">
                 <Particles />
             </div>
-            <span><SparklesText className="responsive-heading">VIRA</SparklesText></span>
+            <span><SparklesText className="responsive-heading inset-0 overflow-hidden">VIRA</SparklesText></span>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-                Your thoughts deserve to be heard — <span className="text-secondary">let VIRA listen</span>
+                Your thoughts deserve to be heard —
+                <span> <ShinyText baseColor="rgb(59, 169, 255)"
+                    shineColor="rgb(255, 164, 164)"
+                    direction="left-to-right"
+                    speed={6} size="5xl" weight="bold">
+                    let VIRA listen
+                </ShinyText></span>
             </h1>
 
             <p className="mt-4 text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
