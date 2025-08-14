@@ -3,10 +3,12 @@
 
 import { BorderBeam } from "@/components/modules/BorderBeam";
 import { Particles } from "@/components/modules/Particles";
+import { PulsatingButton } from "@/components/modules/PulsatingButton";
 import ShinyText from "@/components/modules/ShinyText";
 import { SparklesText } from "@/components/modules/Sparkle";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
     return (
@@ -31,9 +33,16 @@ const Hero = () => {
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                <Button className="bg-primary text-primary-foreground px-6 py-3 text-base hover:bg-primary/90">
-                    Start Talking
-                </Button>
+                <PulsatingButton pulseColor="#ffa4a4" className="px-0 py-0">
+                    <Button
+                        asChild
+                        className="bg-primary text-primary-foreground px-6 py-3 text-base"
+                    >
+                        <Link href="/signup">
+                            Start Talking
+                        </Link>
+                    </Button>
+                </PulsatingButton>
                 <Button variant="outline" className="px-6 py-3 text-base">
                     <a href="#features">View Features</a>
                 </Button>

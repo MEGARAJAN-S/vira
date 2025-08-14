@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ShinyText from "@/components/modules/ShinyText";
+import { PulsatingButton } from "@/components/modules/PulsatingButton";
 
 const CallToAction = () => {
   return (
@@ -19,15 +20,18 @@ const CallToAction = () => {
           Connect with our AI-powered mental health assistant and take your first step towards a
           healthier mind. It's free, secure, and available 24/7.
         </p>
-        <Button
-          variant="outline"
-          size="lg"
-          className="text-base"
-        >
-          <Link href="/signup">
-            Get Started Now
-          </Link>
-        </Button>
+        <div className="flex items-center justify-center">
+          <PulsatingButton pulseColor="#ffa4a4" className="px-0 py-0">
+            <Button
+              asChild
+              className="bg-primary-foreground text-primary px-6 py-3 text-base hover:bg-white"
+            >
+              <Link href="/signup">
+                Get Started Now !!
+              </Link>
+            </Button>
+          </PulsatingButton>
+        </div>
       </div>
     </section>
   );
