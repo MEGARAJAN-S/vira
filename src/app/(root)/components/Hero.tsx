@@ -38,7 +38,7 @@ const Hero = () => {
                         asChild
                         className="bg-primary text-primary-foreground px-6 py-3 text-base"
                     >
-                        <Link href="/signup">
+                        <Link href="/sign-up">
                             Start Talking
                         </Link>
                     </Button>

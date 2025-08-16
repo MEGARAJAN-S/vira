@@ -26,7 +26,7 @@ const CallToAction = () => {
               asChild
               className="bg-primary-foreground text-primary px-6 py-3 text-base hover:bg-white"
             >
-              <Link href="/signup">
+              <Link href="/sign-up">
                 Get Started Now !!
               </Link>
             </Button>

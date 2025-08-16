@@ -28,10 +28,10 @@ const Header = () => {
       </nav>
 
       <div className="flex gap-3">
-        <Link href="/login">
-          <Button variant="outline">Log In</Button>
+        <Link href="/sign-in">
+          <Button variant="outline">Sign In</Button>
         </Link>
-        <Link href="/signup">
+        <Link href="/sign-up">
           <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Sign Up</Button>
         </Link>
       </div>
