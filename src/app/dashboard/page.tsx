@@ -1,5 +1,4 @@
 import React from 'react'
-import Signout from '../(auth)/components/Signout'
 
 const page = () => {
   return (
