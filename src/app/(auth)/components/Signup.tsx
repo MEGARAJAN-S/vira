@@ -66,7 +66,6 @@ const Signup = () => {
         }, {
             onSuccess: () => {
                 setPending(false);
-                alert("Success");
                 router.push("/dashboard");
             },
             onError: ({ error }) => {
