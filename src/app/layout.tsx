@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Funnel_Display } from "next/font/google";
+import { TRPCReactProvider } from "@/trpc/client";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -19,19 +20,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <body
-        className={`${funnelDisplay.className}`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
+    <TRPCReactProvider>
+      <html lang="en" suppressHydrationWarning className="scroll-smooth">
+        <body
+          className={`${funnelDisplay.className}`}
         >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </TRPCReactProvider>
   );
 }
