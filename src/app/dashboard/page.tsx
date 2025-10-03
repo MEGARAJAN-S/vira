@@ -1,9 +1,9 @@
-"use client"
 
-const page = () => {
+
+const page = async () => {
   return (
     <div>
-      Home view
+      Dashboard
     </div>
   )
 }
