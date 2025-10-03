@@ -3,6 +3,7 @@ import { Funnel_Display } from "next/font/google";
 import { TRPCReactProvider } from "@/trpc/client";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const funnelDisplay = Funnel_Display({
   variable: "--font-funnel-display",
@@ -31,6 +32,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Toaster />
             {children}
           </ThemeProvider>
         </body>
