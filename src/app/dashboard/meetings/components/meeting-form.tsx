@@ -120,7 +120,7 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormP
                                     id: agent.id,
                                     value: agent.id,
                                     children: (
-                                        <div>
+                                        <div className="flex gap-2">
                                             <GeneratedAvatar
                                              seed={agent.name}
                                              variant="botttsNeutral"
