@@ -3,7 +3,7 @@
 const page = async () => {
   return (
     <div>
-      Dashboard
+      Dashboard Page
     </div>
   )
 }
