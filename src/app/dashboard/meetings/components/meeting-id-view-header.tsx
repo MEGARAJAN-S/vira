@@ -18,15 +18,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 interface Props {
-    agentId: string;
-    agentName: string;
+    meetingId: string;
+    meetingName: string;
     onEdit: () => void;
     onRemove: () => void;
 }
 
-export const AgentIdViewHeader = ({
-    agentId,
-    agentName,
+export const MeetingIdViewHeader = ({
+    meetingId,
+    meetingName,
     onEdit,
     onRemove
 }: Props) => {
@@ -36,8 +36,8 @@ export const AgentIdViewHeader = ({
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild className="font-medium text-xl">
-                            <Link href="/dashboard/agents">
-                                My Agents
+                            <Link href="/dashboard/meetings">
+                                My Meetings
                             </Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
@@ -46,8 +46,8 @@ export const AgentIdViewHeader = ({
                     </BreadcrumbSeparator>
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild className="font-medium text-xl text-foreground">
-                            <Link href={`/dashboard/agents/${agentId}`}>
-                                {agentName}
+                            <Link href={`/dashboard/meetings/${meetingId}`}>
+                                {meetingName}
                             </Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
