@@ -36,8 +36,8 @@ const firstSection = [
 const secondSection = [
     {
         icon: StarIcon,
-        label: 'Upgrade',
-        href: '/dashboard/upgrade',
+        label: 'Profile',
+        href: '/dashboard/profile',
     },
 ]
 
