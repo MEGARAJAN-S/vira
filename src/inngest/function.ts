@@ -29,7 +29,7 @@ Example:
 - Feature X automatically does Y
 - Mention of integration with Z
   `.trim(),
-  model: openai({ model: "gpt-4o", apiKey: process.env.OPENAI_API_KEY}),
+  model: openai({ model: "gpt-5-nano", apiKey: process.env.OPENAI_API_KEY}),
 })
 
 export const meetingProcessing = inngest.createFunction(
