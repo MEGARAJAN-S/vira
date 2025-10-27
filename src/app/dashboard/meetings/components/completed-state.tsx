@@ -99,7 +99,7 @@ export const CompletedState = ({data}: Props) => {
                                 {data.duration ? formatDuration(data.duration) : "No duration"}
                             </Badge>
                         </div>
-                        <div>
+                        <div className="px-5">
                             <Markdown
                                 components={{
                                     h1: (props) => (
